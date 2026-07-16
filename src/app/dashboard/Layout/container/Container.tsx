@@ -1,6 +1,6 @@
 'use client';
 
-import { Center, Flex, Spinner, useBreakpointValue } from '@chakra-ui/react';
+import { Center, Flex, Spinner } from '@chakra-ui/react';
 import { BaseContainer, FloatSwitchColorMode } from '_components/custom';
 
 export const Container = ({
@@ -10,8 +10,6 @@ export const Container = ({
   children: React.ReactNode;
   isLoading?: boolean;
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
   return (
     <Flex flex={1} h="100%" width="100%">
       {isLoading ? (
@@ -28,7 +26,7 @@ export const Container = ({
           {children}
         </BaseContainer>
       )}
-      {isMobile && <FloatSwitchColorMode />}
+      <FloatSwitchColorMode />
     </Flex>
   );
 };

@@ -34,6 +34,11 @@ export const APIS = (baseUrl?: string) => {
         pathBase: 'SECURED_API',
         showResponse: false,
       }),
+      CREATE: api({
+        path: `${APIS_ROUTES_MODULES_PATH.ESTABLISHMENT}/create-establishment`,
+        method: 'POST',
+        pathBase: 'SECURED_API',
+      }),
     },
   };
 };

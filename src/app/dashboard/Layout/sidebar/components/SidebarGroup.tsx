@@ -5,12 +5,9 @@ import { BaseText } from '_components/custom';
 import { SideToolTip } from './SideToolTip';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { Icons } from '_components/custom';
-import { UpgradePlanModal } from './UpgradePlanModal';
 import { MotionFlex } from '_constants/motion';
 import { AnimatePresence } from 'framer-motion';
-import { useAppTheme } from '_context/theme-context';
 import { useThemeColors } from '_theme/useThemeColors';
 
 export const SidebarGroup = ({
@@ -24,8 +21,6 @@ export const SidebarGroup = ({
   mobileCloseDrawer?: () => void;
 }) => {
   const { hexToRGB } = useThemeColors();
-  const [openUpgradeModal, setOpenUpgradeModal] = useState(false);
-
   const router = useRouter();
   const { t } = useTranslation();
   const { isActiveLink } = useIsActive();
@@ -66,7 +61,6 @@ export const SidebarGroup = ({
 
                   const handleClick = () => {
                     if (item.disabled) {
-                      setOpenUpgradeModal(true);
                       return;
                     }
                     router.push(item.path);
@@ -100,12 +94,12 @@ export const SidebarGroup = ({
                         py={2}
                         borderRadius="md"
                         justifyContent={isCollapsed ? 'center' : 'flex-start'}
-                        bg={isActive ? hexToRGB(500, 0.2) : 'transparent'}
+                        bg={isActive ? hexToRGB(500, 0.1) : 'transparent'}
                         color={
                           item.disabled
                             ? 'gray.400'
                             : isActive || isHighlighted
-                              ? 'primary.600'
+                              ? 'primary.500'
                               : 'gray.600'
                         }
                         fontWeight={isActive || isHighlighted ? 'semibold' : 'normal'}
@@ -116,7 +110,7 @@ export const SidebarGroup = ({
                           item.disabled
                             ? {}
                             : {
-                                bg: hexToRGB(500, 0.08),
+                                bg: hexToRGB(500, 0.1),
                               }
                         }
                       >
@@ -193,7 +187,6 @@ export const SidebarGroup = ({
           </Accordion.ItemContent>
         </Accordion.Item>
       </Accordion.Root>
-      <UpgradePlanModal onChange={setOpenUpgradeModal} isOpen={openUpgradeModal} />
     </main>
   );
 };

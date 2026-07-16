@@ -12,6 +12,16 @@ export const SIDEBAR_ROUTES: SidebarNavGroupProps[] = [
         label: 'SIDE_BAR.DASHBOARD',
         icon: Icons.Home,
       },
+      {
+        path: DASHBOARD_ROUTES.ESTABLISHMENT,
+        label: 'Etablissements',
+        icon: Icons.RiBuildingLine,
+      },
+      {
+        path: DASHBOARD_ROUTES.SCHOOL_YEAR,
+        label: 'Années scolaires',
+        icon: Icons.Calendar,
+      },
     ],
   },
   {

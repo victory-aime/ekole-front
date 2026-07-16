@@ -5,6 +5,7 @@ import React from 'react';
 import GlobalApplicationProvider from './provider/GlobalApplicationProvider';
 import { ThemeProvider } from '_components/ui/provider';
 import { I18nProvider } from './provider/i18n-provider';
+import 'react-international-phone/style.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,7 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <GlobalApplicationProvider>
           <ThemeProvider>
