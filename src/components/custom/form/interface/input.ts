@@ -1,0 +1,156 @@
+import {
+  DatePickerInputProps,
+  DatePickerRootProps,
+  HTMLChakraProps,
+  ListCollection,
+} from '@chakra-ui/react';
+import React, {
+  ElementType,
+  HTMLInputTypeAttribute,
+  JSXElementConstructor,
+  ReactElement,
+  ReactNode,
+} from 'react';
+
+interface TextInputProps extends HTMLChakraProps<'input'> {
+  name: string;
+  label?: string;
+  required?: boolean;
+  isReadOnly?: boolean;
+  isDisabled?: boolean;
+  isVerified?: boolean;
+  infoMessage?: string | null;
+  helperMessage?: string;
+  useFullAmountMask?: boolean;
+  rightAccessory?: React.ReactNode;
+  leftAccessory?: React.ReactNode;
+  type?: HTMLInputTypeAttribute | undefined;
+  accept?: string;
+  validate?: any;
+  useMask?: boolean;
+  maskVisibleCount?: number;
+  maskChar?: string;
+  customRadius?: number;
+  height?: string | number;
+  toolTipInfo?: string;
+  isLoading?: boolean;
+  onChangeFunction?: any;
+  currency?: string;
+}
+
+interface FormTextAreaProps extends TextInputProps {
+  minHeight?: string;
+  autoresize?: boolean;
+  maxCharacters?: number;
+}
+
+interface FullSelectProps {
+  name: string;
+  label?: string;
+  listItems: ListCollection<unknown> | any;
+  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<any>;
+  placeholder?: string;
+  isDisabled?: boolean;
+  isMultiSelect?: boolean;
+  onChangeFunc?: (data: any) => void;
+  infoMessage?: string;
+  variant?: 'outline' | 'subtle';
+  validate?: any;
+  required?: boolean;
+  width?: string;
+  customRenderSelected?: (selectedItems: any[]) => React.ReactNode;
+  isClearable?: boolean;
+  showDropdownIcon?: boolean;
+  toolTipInfo?: string;
+  isLoading?: boolean;
+  isReadOnly?: boolean;
+  ref?: any | undefined;
+  customRadius?: string;
+}
+interface DefaultProps extends TextInputProps {
+  isNumber?: boolean;
+  min: number;
+  max: number;
+  slideIcon?: ElementType | undefined;
+}
+
+interface CheckBoxProps extends HTMLChakraProps<'label'> {
+  name: string;
+  label?: string | React.ReactNode;
+  validate?: any;
+  itemsPerRow?: number;
+  size?: 'sm' | 'md' | 'lg';
+  isReadOnly?: boolean;
+  items?: {
+    name?: string;
+    label?: string;
+    value?: string;
+  }[];
+}
+
+interface SwitchProps extends HTMLChakraProps<'switch'> {
+  name: string;
+  label?: string;
+  validate?: any;
+  reverse?: boolean;
+  description?: string;
+  isLoading?: boolean;
+  isReadOnly?: boolean;
+  onCheckedChange?: (value: boolean) => void;
+}
+
+interface FormColorPickerProps extends TextInputProps {}
+
+interface FormDatePickerFieldProps extends DatePickerRootProps {
+  isReadOnly?: boolean;
+  isDisabled?: boolean;
+  isLoading?: boolean;
+  isDisabledPassDates?: boolean;
+  isDisabledWeekDates?: boolean;
+  name?: string;
+  label?: string;
+  mode?: 'single' | 'range' | 'multiple';
+  startMonth?: Date;
+  endMonth?: Date;
+  required?: boolean;
+}
+
+interface FormDateTimePickerProps extends DatePickerRootProps, FormDatePickerFieldProps {
+  stopPropagation?: boolean;
+}
+
+type DatePickerInputContainerProps = DatePickerInputProps & {
+  isError?: boolean;
+};
+
+interface TimeInputProps extends TextInputProps {
+  variant?: 'outline' | 'subtle' | 'plain';
+}
+interface OtpInputProps extends TextInputProps {
+  count?: number;
+  attached?: boolean;
+}
+
+type countriesList = ['cg' | 'fr' | 'cd' | 'sn'];
+
+interface PhoneInputProps extends TextInputProps {
+  hideDropdown?: boolean;
+  listAvailableCountries?: string[];
+}
+
+export type {
+  TextInputProps,
+  FormTextAreaProps,
+  FullSelectProps,
+  DefaultProps,
+  CheckBoxProps,
+  SwitchProps,
+  FormColorPickerProps,
+  FormDatePickerFieldProps,
+  TimeInputProps,
+  OtpInputProps,
+  PhoneInputProps,
+  countriesList,
+  DatePickerInputContainerProps,
+  FormDateTimePickerProps,
+};

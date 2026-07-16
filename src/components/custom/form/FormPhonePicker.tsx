@@ -1,0 +1,151 @@
+import React from 'react';
+import { Field, Flex, useBreakpointValue } from '@chakra-ui/react';
+import { defaultCountries, parseCountry, PhoneInput } from 'react-international-phone';
+import { useField, useFormikContext } from 'formik';
+import { PhoneInputProps } from './interface/input';
+import { BaseText, CustomSkeletonLoader } from '_components/custom';
+import { useTranslation } from 'react-i18next';
+import { useColorMode } from '_components/ui/color-mode';
+import { VariablesColors } from '_theme/variables';
+import './utils/phone-dropdown.css';
+import { hexToRGB } from '_theme/colors';
+
+export const FormPhonePicker = ({
+  validate,
+  isReadOnly,
+  name,
+  label,
+  required,
+  isLoading,
+  placeholder = 'Numero de telephone',
+  infoMessage,
+  onChangeFunction,
+  hideDropdown = false,
+  listAvailableCountries = ['sn', 'cg', 'cd', 'tn'],
+}: PhoneInputProps) => {
+  const { t } = useTranslation();
+  const { colorMode } = useColorMode();
+  const [field, { touched, error }, helpers] = useField({ name, validate });
+  const { submitCount } = useFormikContext();
+  const isError = isReadOnly ? !!error : !!(error && (touched || submitCount > 0));
+
+  const bgColor = colorMode === 'light' ? VariablesColors.white : hexToRGB('overlay', 0.3);
+  const colorBorder = colorMode === 'light' ? VariablesColors.gray200 : 'rgb(40, 45, 45)';
+  const colorDropdown = colorMode === 'light' ? VariablesColors.white : VariablesColors.black;
+  const colorText = colorMode === 'light' ? VariablesColors.black : VariablesColors.white;
+  const inputFontSize = useBreakpointValue({ base: '16px', md: '14px' }) || '16px';
+
+  const availableCountries = React.useMemo(() => {
+    if (!listAvailableCountries?.length) {
+      return defaultCountries;
+    }
+
+    return defaultCountries.filter((country) => {
+      const { iso2 } = parseCountry(country);
+      return listAvailableCountries.includes(iso2);
+    });
+  }, [listAvailableCountries]);
+
+  const defaultCountry = React.useMemo(() => {
+    if (!availableCountries.length) return undefined;
+
+    return parseCountry(availableCountries[0]).iso2;
+  }, [availableCountries]);
+
+  if (!availableCountries.length || !defaultCountry) {
+    return <CustomSkeletonLoader type={'TEXT'} numberOfLines={1} />;
+  }
+
+  return (
+    <Field.Root id={name} invalid={isError}>
+      {label && (
+        <Field.Label display="flex" gap="6px" fontSize={'14px'}>
+          {isLoading ? (
+            <CustomSkeletonLoader type="TEXT" numberOfLines={1} />
+          ) : (
+            <>
+              {t(label)}
+              {required && <BaseText color="red"> * </BaseText>}
+            </>
+          )}
+        </Field.Label>
+      )}
+
+      <PhoneInput
+        {...field}
+        countries={availableCountries}
+        defaultCountry={defaultCountry}
+        disableDialCodePrefill
+        disableDialCodeAndPrefix
+        disableFocusAfterCountrySelect
+        hideDropdown={availableCountries?.length <= 1 || hideDropdown}
+        disabled={isReadOnly || isLoading}
+        value={field.value !== undefined && field.value !== null ? field.value : ''}
+        placeholder={t(placeholder)}
+        onChange={(phone, { inputValue }) => {
+          const value = inputValue ? phone : '';
+
+          helpers.setValue(value);
+          onChangeFunction?.(value);
+        }}
+        style={{ width: '100%' }}
+        countrySelectorStyleProps={{
+          buttonStyle: {
+            padding: '8px',
+            backgroundColor: bgColor,
+            borderTopLeftRadius: '12px',
+            borderBottomLeftRadius: '12px',
+            borderRight: 'none',
+            borderTopColor: isError ? VariablesColors.danger : colorBorder,
+            borderBottomColor: isError ? VariablesColors.danger : colorBorder,
+            borderLeftColor: isError ? VariablesColors.danger : colorBorder,
+            borderRightColor: colorBorder,
+            height: '40px',
+          },
+          dropdownStyleProps: {
+            style: {
+              backgroundColor: colorDropdown,
+              color: colorText,
+              borderRadius: '12px',
+              padding: '8px',
+            },
+            listItemClassName: 'phone-dropdown-item',
+            listItemFocusedClassName: 'focused',
+            listItemSelectedClassName: 'selected',
+          },
+          dropdownArrowStyle: { marginLeft: '4px' },
+        }}
+        inputStyle={{
+          backgroundColor: bgColor,
+          color: colorText,
+          border: `1px solid ${isError ? VariablesColors.danger : colorBorder}`,
+          borderTopRightRadius: '12px',
+          borderBottomRightRadius: '12px',
+          borderTopLeftRadius: '0',
+          borderBottomLeftRadius: '0',
+          height: '40px',
+          width: '100%',
+          fontSize: inputFontSize,
+        }}
+        inputProps={{
+          name,
+          required,
+        }}
+      />
+
+      {isError && (
+        <Flex gap={1} mt={1} alignItems="center">
+          <Field.ErrorIcon width={2.5} height={2.5} color={'red.500'} />
+          <Field.ErrorText>{error}</Field.ErrorText>
+        </Flex>
+      )}
+
+      {infoMessage && !isLoading && (
+        <Flex gap={1} mt={1} alignItems="center">
+          <Field.ErrorIcon width={4} height={4} color="info.500" />
+          <Field.HelperText p={1}>{t(infoMessage)}</Field.HelperText>
+        </Flex>
+      )}
+    </Field.Root>
+  );
+};
