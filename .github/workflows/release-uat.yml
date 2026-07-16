@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - uat
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -13,6 +12,9 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+
+    env:
+      API_BACKEND_URL: ${{ secrets.API_BACKEND_URL }}
 
     steps:
       - name: Checkout repository
@@ -39,13 +41,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma Client
-        run: pnpm prisma generate
-
       - name: Build application
         run: pnpm build
 
-      - name: Run Semantic Release (uat)
+      - name: Run Semantic Release (uat pre-release)
         run: pnpm exec semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
