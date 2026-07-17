@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  BaseButton,
   BaseContainer,
   BaseText,
+  convertArrayDate,
   CustomSkeletonLoader,
   Icons,
 } from '_components/custom';
@@ -16,7 +16,6 @@ import { useState } from 'react';
 import { EstablishmentForm } from './EstablishmentForm';
 import { FormikValues } from 'formik';
 import { MODELS } from '_types/*';
-import { getLocalTimeZone } from '@internationalized/date';
 
 export default function Establishment() {
   const [openForm, setOpenForm] = useState<boolean>(false);
@@ -33,21 +32,24 @@ export default function Establishment() {
     });
 
   const handleCreate = async (values: FormikValues) => {
-    const [start, end] = values.date;
-    const startDate = start.toDate(getLocalTimeZone());
-    const endDate = end.toDate(getLocalTimeZone());
+    const { date, ...rest } = values;
+    const [start, end] = convertArrayDate(date);
 
-    const request = {
-      ...values,
+    const request: MODELS.ICreateEstablishment = {
       annees_scolaires: {
         libelle: values?.libelle,
-        date_debut: startDate,
-        date_fin: endDate,
+        date_debut: start,
+        date_fin: end,
       },
       ville: values?.ville && values?.ville[0],
+      adresse: rest.adresse,
+      email: rest.email,
+      nom: rest.nom,
+      telephone: rest.telephone,
+      sigle: rest.sigle,
     };
     await createEstablishment({
-      payload: request as MODELS.ICreateEstablishment,
+      payload: request,
     });
   };
 
@@ -82,8 +84,8 @@ export default function Establishment() {
                   <Stack>
                     <BaseText>{item.nom}</BaseText>
                     <BaseText color={'gray.500'}>
-                      Sigle : {item.sigle} - {'Année scolaire '} - {item.annee_scolaire.libelle} -
-                      {item.annee_scolaire.total_eleves ?? 0} élèves
+                      Sigle : {item.sigle} - {'Année scolaire'} - {item.annee_scolaire?.libelle} -
+                      {item.annee_scolaire?.total_eleves ?? 0} élèves
                     </BaseText>
                   </Stack>
                   <Avatar fallback={item.sigle} size={'lg'} />

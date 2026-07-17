@@ -1,7 +1,5 @@
-import React from 'react';
+import { SchoolYear } from './components/SchoolYear';
 
-function SchoolYearPage() {
-  return <div>SchoolYearPage</div>;
+export default function SchoolYearPage() {
+  return <SchoolYear />;
 }
-
-export default SchoolYearPage;

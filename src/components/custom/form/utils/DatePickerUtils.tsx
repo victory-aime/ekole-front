@@ -56,6 +56,7 @@ export const DatePickerInputByMode = memo(
                 <DatePickerInputContainer
                   placeholder={placeholder}
                   isError={isError}
+                  index={0}
                   width={'full'}
                 />
               </DatePicker.Trigger>

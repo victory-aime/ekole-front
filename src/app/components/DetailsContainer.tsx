@@ -8,6 +8,7 @@ export const DetailsContainer: FC<BoxProps> = ({ children, ...rest }) => {
       border="0.5px solid"
       borderColor="inherit"
       borderRadius="xl"
+      mt={'30px'}
       px={6}
       py={4}
       {...rest}

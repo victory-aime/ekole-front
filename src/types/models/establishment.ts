@@ -24,8 +24,8 @@ interface ICreateEstablishment {
   sigle: string;
   annees_scolaires: {
     libelle: string;
-    date_debut: string;
-    date_fin: string;
+    date_debut: Date;
+    date_fin: Date;
     active?: boolean;
   };
 }

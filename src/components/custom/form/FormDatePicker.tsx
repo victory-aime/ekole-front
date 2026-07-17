@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, memo } from 'react';
+import React, { useCallback, memo, useMemo } from 'react';
 import { Field, Portal, Flex, DatePicker, parseDate, DateValue, HStack } from '@chakra-ui/react';
 import { useField, useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -25,7 +25,7 @@ export const FormDatePicker = memo(
     endMonth = new Date(2030, 12),
     isLoading = false,
     mode = 'single',
-    isDisabledPassDates,
+    isDisabledPassDates = true,
     isDisabledWeekDates,
     ...rest
   }: FormDatePickerFieldProps) => {
@@ -37,18 +37,18 @@ export const FormDatePicker = memo(
     const isError = isReadOnly ? !!error : !!(error && (touched || submitCount > 0));
 
     const handleChange = useCallback(
-      (date: DatePicker.ValueChangeDetails) => {
+      ({ value }: DatePicker.ValueChangeDetails) => {
         if (mode === 'single') {
-          const selectedDate = date?.value?.[0];
+          const selectedDate = value?.[0];
           if (!selectedDate) {
             setValue(null);
             return;
           }
-          setValue(selectedDate.toDate('UTC').toISOString());
+          setValue(selectedDate);
         }
 
         if (mode === 'range' || mode === 'multiple') {
-          setValue(date?.value);
+          setValue(value);
         }
       },
       [mode, setValue],
@@ -71,6 +71,26 @@ export const FormDatePicker = memo(
       });
     }, []);
 
+    const pickerValue = useMemo(() => {
+      if (!field.value) return [];
+
+      const toDateValue = (value: string) => {
+        const date = new Date(value);
+
+        return parseDate(
+          `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(
+            date.getUTCDate(),
+          ).padStart(2, '0')}`,
+        );
+      };
+
+      if (Array.isArray(field.value)) {
+        return field.value.map(toDateValue);
+      }
+
+      return [toDateValue(field.value)];
+    }, [field.value]);
+
     return (
       <Field.Root id={name} invalid={isError}>
         {isLoading ? (
@@ -85,6 +105,7 @@ export const FormDatePicker = memo(
                   ? disabledWeekends
                   : undefined
             }
+            value={pickerValue}
             outsideDaySelectable
             onOpenChange={(e) => setTouched(!e.open)}
             positioning={{ strategy: 'fixed', placement: 'bottom' }}
