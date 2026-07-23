@@ -22,16 +22,16 @@ export type Colors = {
 
 const colors: Colors = {
   primary: {
-    50: { value: '#F2EDFB' },
-    100: { value: '#DED4F3' },
-    200: { value: '#BFA9E7' },
-    300: { value: '#9F7EDA' },
-    400: { value: '#7F58CD' },
-    500: { value: '#673ab6' },
-    600: { value: '#5A2FA3' },
-    700: { value: '#4A2788' },
-    800: { value: '#3B1F6D' },
-    900: { value: '#2C1752' },
+    50: { value: '#F1F5FE' },
+    100: { value: '#DEE8FC' },
+    200: { value: '#BED0F9' },
+    300: { value: '#92AFF1' },
+    400: { value: '#3467DF' },
+    500: { value: '#1A3C8A' },
+    600: { value: '#132F76' },
+    700: { value: '#0D235E' },
+    800: { value: '#081745' },
+    900: { value: '#040E2F' },
   },
 
   secondary: {

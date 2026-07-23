@@ -3,7 +3,7 @@ import { CONSTANTS } from '_types/*';
 
 export const cityList = createListCollection({
   items:
-    CONSTANTS.SENEGAL_CITIES.map((city) => ({
+    CONSTANTS.CONGO_CITIES.map((city) => ({
       label: city.label,
       value: city.value,
     })) || [],

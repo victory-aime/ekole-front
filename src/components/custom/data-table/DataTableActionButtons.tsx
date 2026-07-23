@@ -1,5 +1,5 @@
-import { HStack, IconButton, Menu, Portal, VStack } from '@chakra-ui/react';
-import { ActionButtonsProps, Loader, Icons, BaseButton, BaseTooltip } from '_components/custom';
+import { HStack, IconButton, Menu, Portal } from '@chakra-ui/react';
+import { ActionButtonsProps, BaseButton, BaseTooltip, Icons, Loader } from '_components/custom';
 import { VariablesColors } from '_theme/variables';
 import { useTranslation } from 'react-i18next';
 
@@ -99,10 +99,7 @@ const ACTION_CONFIG = {
 export const DataTableActionButtons = <T,>({ actions, item }: ActionButtonsProps<T>) => {
   const { t } = useTranslation();
   const visibleActions = actions.filter((action) => {
-    const isShown =
-      typeof action.isShown === 'function' ? action.isShown(item) : action.isShown !== false;
-
-    return isShown;
+    return typeof action.isShown === 'function' ? action.isShown(item) : action.isShown !== false;
   });
 
   if (visibleActions.length === 1) {
