@@ -4,7 +4,7 @@ import { DASHBOARD_ROUTES } from '_config/routes';
 
 export const SIDEBAR_ROUTES: SidebarNavGroupProps[] = [
   {
-    title: 'Gestion Immobiliers',
+    title: 'Pilotage',
     icon: Icons.GridHome,
     links: [
       {
@@ -22,6 +22,14 @@ export const SIDEBAR_ROUTES: SidebarNavGroupProps[] = [
         label: 'Années scolaires',
         icon: Icons.Calendar,
       },
+    ],
+  },
+  {
+    title: 'Scolarité',
+    icon: Icons.School,
+    links: [
+      { label: 'Classes', path: DASHBOARD_ROUTES.CLASS.LIST, icon: Icons.School },
+      { label: 'élèves', path: DASHBOARD_ROUTES.STUDENTS, icon: Icons.FaUsers },
     ],
   },
   {

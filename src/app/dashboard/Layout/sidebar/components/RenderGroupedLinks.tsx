@@ -24,7 +24,7 @@ export const RenderGroupedLinks = ({
             <SidebarGroup
               key={i}
               title={link.title}
-              icon={link.icon}
+              //icon={link.icon}
               links={link.links}
               isCollapsed={isCollapsed}
               mobileCloseDrawer={mobileCloseDrawer}

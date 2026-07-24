@@ -1,9 +1,10 @@
 import { StatRootProps } from '@chakra-ui/react';
 import { ENUM } from '_types/index';
 import React from 'react';
+import { TextVariant, TextWeight } from '../../base-text';
 
 export interface BaseStatsProps extends StatRootProps {
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   iconBgColor?: string;
   title: string;
   titleVariant?: TextVariant;
