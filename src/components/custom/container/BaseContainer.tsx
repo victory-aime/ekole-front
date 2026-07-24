@@ -122,14 +122,7 @@ export const BaseContainer = React.memo(
           )}
         </Flex>
         {isFilterActive && filterComponent && (
-          <Box
-            mt={'20px'}
-            mb={'30px'}
-            p={5}
-            boxShadow={'md'}
-            borderRadius={'7px'}
-            animation={'slideIn'}
-          >
+          <Box mt={'20px'} p={5} boxShadow={'sm'} borderRadius={'7px'} animation={'slideIn'}>
             {filterComponent}
           </Box>
         )}

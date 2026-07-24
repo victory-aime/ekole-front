@@ -75,6 +75,7 @@ import {
   LuFiles,
   LuHeartHandshake,
   LuMaximize,
+  LuSchool,
   LuSend,
 } from 'react-icons/lu';
 import { BsCalendar3, BsSliders } from 'react-icons/bs';
@@ -188,4 +189,5 @@ export const Icons = {
   Cash: MdOutlinePayments,
   CashV2: GiCash,
   Info: HiOutlineInformationCircle,
+  School: LuSchool,
 };

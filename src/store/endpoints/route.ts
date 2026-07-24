@@ -1,4 +1,3 @@
-import { SCHOOL_YEARS_KEYS } from '_store/state-management/school-year';
 import { ApiActionProps, APIObjectType, createApiAction } from 'rise-core-frontend';
 
 const APIS_ROUTES_MODULES_PATH = {
@@ -6,6 +5,7 @@ const APIS_ROUTES_MODULES_PATH = {
   USER: '/users',
   ESTABLISHMENT: '/establishment',
   SCHOOL_YEARS: '/school-year',
+  CLASS: '/class',
 };
 
 export const APIS = (baseUrl?: string) => {
@@ -45,6 +45,29 @@ export const APIS = (baseUrl?: string) => {
     SCHOOL_YEARS: {
       LIST: api({
         path: `${APIS_ROUTES_MODULES_PATH.SCHOOL_YEARS}/list`,
+        method: 'GET',
+        pathBase: 'SECURED_API',
+        showResponse: false,
+      }),
+      CREATE: api({
+        path: `${APIS_ROUTES_MODULES_PATH.SCHOOL_YEARS}/create-year`,
+        method: 'POST',
+        pathBase: 'SECURED_API',
+      }),
+      DELETE: api({
+        path: `${APIS_ROUTES_MODULES_PATH.SCHOOL_YEARS}/delete-year`,
+        method: 'DELETE',
+        pathBase: 'SECURED_API',
+      }),
+      UPDATE_TERMS: api({
+        path: `${APIS_ROUTES_MODULES_PATH.SCHOOL_YEARS}/update-terms`,
+        method: 'POST',
+        pathBase: 'SECURED_API',
+      }),
+    },
+    CLASS: {
+      LIST: api({
+        path: `${APIS_ROUTES_MODULES_PATH.CLASS}/all-classes`,
         method: 'GET',
         pathBase: 'SECURED_API',
         showResponse: false,

@@ -34,7 +34,7 @@ export const BaseStats: FC<BaseStatsProps> = ({
     <Stat.Root
       {...boxStyle}
       {...rest}
-      gap={4}
+      gap={1}
       borderLeftColor={iconBgColor}
       size={'sm'}
       transition={'all 400ms cubic-bezier(0.25, 0.1, 0.25, 1)'}
@@ -44,7 +44,7 @@ export const BaseStats: FC<BaseStatsProps> = ({
         fontWeight: 'extrabold',
       }}
     >
-      <VStack alignItems={'flex-start'} gap={5}>
+      <VStack alignItems={'flex-start'} gap={0}>
         <Flex alignItems={'center'} gap={5}>
           {icon && <BaseIcon bgColor={iconBgColor}>{icon}</BaseIcon>}
           {title && (
